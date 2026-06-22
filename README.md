@@ -1,0 +1,2 @@
+# The Use Of Genetic Algorithms In Airfoil Design And Computational Fuid Dynamics
+This was a project I worked on for school, where we learnt about simple aerodynamics and computational fluid dynamics (*CFD* - simulating fluids moving). I did research on how genetic algorithms could be used to help with this.
