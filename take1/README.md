@@ -11,4 +11,6 @@ Breeding    | Averaging x and y coordinates
 L/D         | -77459.69469191194
 ***
 ## Results
-You can find the points [here](points.csv). The angle of attack is 3 degrees and a Reynold's number of 9598856. According to my solver, it has a lift to drag ratio of -77459.69469191194. A high quality airfoil is typically a few hundred.
+The angle of attack is 3 degrees and a Reynold's number of 9598856. According to my solver, it has a lift to drag ratio of -77459.69469191194. You can find the exact points [here](points.csv), and the script to analyse them [here](../analyse.py).
+***
+## Explanation
