@@ -1,0 +1,118 @@
+#!/usr/env python3
+
+# Evolving take 4
+# Random: random NACA airfoils
+# Eval:   panel_better L/D
+# Breed:  average max_camber_dev, loc, thickness, alpha, Re_chord
+# Record average, max and min fitness each generation
+
+# IMPORTS
+from airfoil2 import Airfoil
+import panel_better
+import random
+
+
+def evolve(population_count, generations, elite_count, breed_count,
+           random_function, eval_function, breed_function):
+    population = [random_function() for _ in range(population_count)]
+    new_population = [x for x in population]
+    try:
+        for generation in range(generations):
+            results = []
+            for x in population:
+                results.append(eval_function(x))
+                print("Result made")
+            with open("take4.csv", 'a') as f:
+                f.write(f"{generation},{max(results):30.28f},{min(results):30.28f},{sum(results)/population_count:30.28f}\n")
+            copy_results = [x for x in results]
+            for _ in range(elite_count):
+                index = results.index(max(results))
+                new_population.append(population[index])
+                results[index] = -9999999
+            breeders = []
+            for _ in range(breed_count):
+                index = copy_results.index(max(copy_results))
+                breeders.append(population[index])
+                copy_results[index] = -9999999
+            while len(new_population) < population_count:
+                new_population.append(
+                    breed_function(
+                        random.choice(breeders),
+                        random.choice(breeders)
+                    )
+                )
+            population = new_population
+            new_population = []
+            # print(population[0])
+            print(eval_function(population[0]))
+            print(generation)
+    except KeyboardInterrupt:
+        print("Cancelling")
+        results = [eval_function(x) for x in population]
+    else:
+        print("Final analysis")
+        results = [eval_function(x) for x in population]
+    with open("take4.csv", 'a') as f:
+        f.write(f"{generation},{max(results):30.28f},{min(results):30.28f},{sum(results)/population_count:30.28f}\n")
+    print(max(results))
+    return population[results.index(max(results))]
+
+
+def randomFunction():
+    while True:
+        try:
+            foil = Airfoil(random.random(), random.random(), random.random())
+            break
+        except ZeroDivisionError:
+            pass
+    return (foil, random.randint(-20, 20), random.randint(int(1e5), int(1e7)))
+
+
+def evalFunction(system):
+    foil = system[0]
+    return panel_better.calculateLD(
+        foil.x_points, foil.y_points, system[1], system[2]
+    )[0]
+
+
+def breedFunction(s1, s2):
+    f1 = s1[0]
+    f2 = s2[0]
+    avg_dev = (f1.max_camber_dev + f2.max_camber_dev) / 2
+    avg_loc = (f1.max_camber_loc + f2.max_camber_loc) / 2
+    avg_thick = (f1.thickness + f2.thickness) / 2
+    while random.random() < 0.1:
+        avg_dev += (0.5 - random.random()) / 15
+    while random.random() < 0.1:
+        avg_loc += (0.5 - random.random()) / 15
+    while random.random() < 0.1:
+        avg_thick += (0.5 - random.random()) / 15
+    f3 = Airfoil(avg_dev, avg_loc, avg_thick)
+    alpha_deg = (s1[1] + s2[1]) / 2
+    while random.random() < 0.05:
+        alpha_deg += random.random() - 0.5
+    Re_chord = (s1[2] + s2[2]) / 2
+    while random.random() < 0.05:
+        Re_chord += random.randint(int(-1e5), int(1e5))
+    return (f3, alpha_deg, Re_chord)
+
+
+# MAIN
+def main() -> None:
+    best = evolve(5, 5, 1, 3, randomFunction, evalFunction, breedFunction)
+    print("Got best")
+    best[0].name = "Take1"
+    print("Renamed best")
+    print(best[0])
+    print("plotted best")
+    best[0].savePlot()
+    print("saved diagram")
+    best[0].savePoints()
+    print(best[1], best[2])
+    with open("results4.txt", 'w') as f:
+        f.write(f"{best[1]}\n{best[2]}\n\n{best[0].max_camber_dev} {best[0].max_camber_loc} {best[0].thickness}")
+
+
+# RUN
+if __name__ == "__main__":
+    main()
