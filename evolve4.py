@@ -2,13 +2,13 @@
 
 # Evolving take 4
 # Random: random NACA airfoils
-# Eval:   panel_better L/D
+# Eval:   solver L/D
 # Breed:  average max_camber_dev, loc, thickness, alpha, Re_chord
 # Record average, max and min fitness each generation
 
 # IMPORTS
-from airfoil2 import Airfoil
-import panel_better
+from airfoil import Airfoil
+import solver
 import random
 
 
@@ -22,7 +22,7 @@ def evolve(population_count, generations, elite_count, breed_count,
             for x in population:
                 results.append(eval_function(x))
                 print("Result made")
-            with open("take4.csv", 'a') as f:
+            with open("take4/record.csv", 'a') as f:
                 f.write(f"{generation},{max(results):30.28f},{min(results):30.28f},{sum(results)/population_count:30.28f}\n")
             copy_results = [x for x in results]
             for _ in range(elite_count):
@@ -52,7 +52,7 @@ def evolve(population_count, generations, elite_count, breed_count,
     else:
         print("Final analysis")
         results = [eval_function(x) for x in population]
-    with open("take4.csv", 'a') as f:
+    with open("take4/record.csv", 'a') as f:
         f.write(f"{generation},{max(results):30.28f},{min(results):30.28f},{sum(results)/population_count:30.28f}\n")
     print(max(results))
     return population[results.index(max(results))]
@@ -70,7 +70,7 @@ def randomFunction():
 
 def evalFunction(system):
     foil = system[0]
-    return panel_better.calculateLD(
+    return solver.calculateLD(
         foil.x_points, foil.y_points, system[1], system[2]
     )[0]
 
@@ -101,16 +101,20 @@ def breedFunction(s1, s2):
 def main() -> None:
     best = evolve(5, 5, 1, 3, randomFunction, evalFunction, breedFunction)
     print("Got best")
-    best[0].name = "Take1"
+    best[0].name = "points"
     print("Renamed best")
     print(best[0])
     print("plotted best")
-    best[0].savePlot()
+    best[0].savePlot("take4")
     print("saved diagram")
-    best[0].savePoints()
+    best[0].savePoints("take4")
     print(best[1], best[2])
-    with open("results4.txt", 'w') as f:
-        f.write(f"{best[1]}\n{best[2]}\n\n{best[0].max_camber_dev} {best[0].max_camber_loc} {best[0].thickness}")
+    with open("take4/summary.txt", 'w') as f:
+        f.write(f"""Angle of attack = {best[1]} degrees
+Reynolds number = {best[2]}
+Max camber deviation = {best[0].max_camber_dev}
+Max camber location = {best[0].max_camber_loc}
+Thickness = {best[0].thickness}""")
 
 
 # RUN

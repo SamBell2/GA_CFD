@@ -2,12 +2,12 @@
 
 # Evolving take 2
 # Random: random NACA airfoils, alpha, Re_chord
-# Eval:   panel_better L/D
+# Eval:   solver L/D
 # Breed:  average points, alpha, Re_chord
 
 # IMPORTS
-from airfoil2 import Airfoil
-import panel_better
+from airfoil import Airfoil
+import solver
 import random
 import numpy as np
 
@@ -65,7 +65,7 @@ def randomFunction():
 
 def evalFunction(system):
     foil = system[0]
-    return panel_better.calculateLD(
+    return solver.calculateLD(
         foil.x_points, foil.y_points, system[1], system[2]
     )[0]
 
@@ -101,14 +101,17 @@ def breedFunction(s1, s2):
 def main() -> None:
     best = evolve(10, 10, 1, 5, randomFunction, evalFunction, breedFunction)
     print("Got best")
-    best[0].name = "Take1"
+    best[0].name = "points"
     print("Renamed best")
     print(best[0])
     print("plotted best")
-    best[0].savePlot()
+    best[0].savePlot("take2")
     print("saved diagram")
-    best[0].savePoints()
+    best[0].savePoints("take2")
     print(best[1], best[2])
+    with open("take2/summary.txt", 'w') as f:
+        f.write(f"""Angle of attack = {best[1]} degrees
+Reynolds number = {best[2]}""")
 
 
 # RUN
