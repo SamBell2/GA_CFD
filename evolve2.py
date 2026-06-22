@@ -58,6 +58,7 @@ def randomFunction():
     while True:
         try:
             foil = Airfoil(random.random(), random.random(), random.random())
+            break
         except ZeroDivisionError:
             pass
     return (foil, random.randint(-20, 20), random.randint(int(1e5), int(1e7)))
@@ -99,7 +100,7 @@ def breedFunction(s1, s2):
 
 # MAIN
 def main() -> None:
-    best = evolve(10, 10, 1, 5, randomFunction, evalFunction, breedFunction)
+    best = evolve(1, 1, 1, 5, randomFunction, evalFunction, breedFunction)
     print("Got best")
     best[0].name = "points"
     print("Renamed best")
