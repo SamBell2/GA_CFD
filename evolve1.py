@@ -23,7 +23,7 @@ def evolve(population_count, generations, elite_count,
             results = []
             for x in population:
                 results.append(eval_function(x))
-                print("Result made")
+                # print("Result made")
             copy_results = [x for x in results]
             for _ in range(elite_count):
                 index = results.index(max(results))

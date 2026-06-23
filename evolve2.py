@@ -16,12 +16,13 @@ def evolve(population_count, generations, elite_count, breed_count,
            random_function, eval_function, breed_function):
     population = [random_function() for _ in range(population_count)]
     new_population = [x for x in population]
+    print("starting")
     try:
         for generation in range(generations):
             results = []
             for x in population:
                 results.append(eval_function(x))
-                print("Result made")
+                # print("Result made")
             copy_results = [x for x in results]
             for _ in range(elite_count):
                 index = results.index(max(results))

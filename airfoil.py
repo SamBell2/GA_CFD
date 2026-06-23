@@ -123,6 +123,7 @@ class Airfoil:
         self.y_points = Y[::-1]
 
     def plot(self) -> None:
+        return
         plt.style.use('seaborn-v0_8-darkgrid')
         plt.switch_backend('TkAgg')
         plt.figure(figsize=(12, 4))
@@ -144,7 +145,7 @@ class Airfoil:
 
     def savePlot(self, folder) -> None:
         plt.style.use('seaborn-v0_8-darkgrid')
-        plt.switch_backend('TkAgg')
+        # plt.switch_backend('TkAgg')
         plt.figure(figsize=(12, 4))
         plt.xlabel("x/c (fraction of chord)", fontsize=12)
         plt.ylabel("y/c (fraction of chord)", fontsize=12)
