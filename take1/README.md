@@ -8,9 +8,9 @@ Parameter   | Value
 Randomising | Random x and y coordinates
 Evaluating  | Panel method solver
 Breeding    | Averaging x and y coordinates
-L/D         | -77459.69469191194
 ***
 ## Results
 The angle of attack is 3 degrees and a Reynold's number of 9598856. According to my solver, it has a lift to drag ratio of -77459.69469191194. You can find the exact points [here](points.csv), and the script to analyse them [here](../analyse.py).
 ***
 ## Explanation
+The sharp angles and conflicting panel lead to a lot of turbulence, which my solver can't handle perfectly when there's this much. This leads to wildly wrong L/D values, which my algorithm then exploits to max out the values.

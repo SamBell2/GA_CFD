@@ -70,6 +70,12 @@ class Airfoil:
         )
         self.name = "NACA ----"
 
+    def create_points(self):
+        points = []
+        for x, y in zip(self.x_points[::-1], self.y_points[::-1]):
+            points.append((x, y))
+        self.array = np.array(points)
+
     def __repr__(self):
         self.plot()
         return ''

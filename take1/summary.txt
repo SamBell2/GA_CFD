@@ -1,2 +1,2 @@
-Angle of attack = 3 degrees
-Reynolds number = 9598856
+Angle of attack = -19 degrees
+Reynolds number = 4098065

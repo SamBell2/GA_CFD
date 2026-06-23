@@ -7,7 +7,7 @@
 
 # IMPORTS
 from airfoil import Airfoil
-import solver
+import neuralfoil as nf
 import random
 
 
@@ -60,14 +60,18 @@ def randomFunction():
             break
         except ZeroDivisionError:
             pass
+    foil.create_points()
     return (foil, random.randint(-20, 20), random.randint(int(1e5), int(1e7)))
 
 
 def evalFunction(system):
     foil = system[0]
-    return solver.calculateLD(
-        foil.x_points, foil.y_points, system[1], system[2]
-    )[0]
+    aero = nf.get_aero_from_coordinates(
+        coordinates=foil.array,
+        alpha=system[1],
+        Re=system[2],
+    )
+    return (aero["CL"]/aero["CD"])[0]
 
 
 def breedFunction(s1, s2):
@@ -83,6 +87,7 @@ def breedFunction(s1, s2):
     while random.random() < 0.1:
         avg_thick += (0.5 - random.random()) / 15
     f3 = Airfoil(avg_dev, avg_loc, avg_thick)
+    f3.create_points()
     alpha_deg = (s1[1] + s2[1]) / 2
     while random.random() < 0.05:
         alpha_deg += random.random() - 0.5
