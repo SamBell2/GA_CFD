@@ -73,6 +73,8 @@ def evalFunction(system):
         alpha=system[1],
         Re=system[2],
     )
+    if aero["CD"] == 0:
+        return 0
     return (aero["CL"]/aero["CD"])[0]
 
 
