@@ -106,7 +106,7 @@ def breedFunction(s1, s2):
 
 # MAIN
 def main() -> None:
-    best = evolve(1, 1, 1, 5, randomFunction, evalFunction, breedFunction)
+    best = evolve(500, 150, 7, 250, randomFunction, evalFunction, breedFunction)
     print("Got best")
     best[0].name = "points"
     print("Renamed best")

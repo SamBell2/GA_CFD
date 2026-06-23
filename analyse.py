@@ -1,4 +1,4 @@
-import solver
+import neuralfoil as nf
 import numpy as np
 
 folder = input("Enter folder: ")
@@ -15,4 +15,13 @@ with open(folder + '/' + "summary.txt") as f:
     lines = f.readlines()
     alpha_deg = int(lines[0].split()[-2])
     Re_chord = int(lines[1].split()[-1])
-print(solver.calculateLD(x, y, alpha_deg, Re_chord)[0])
+points = []
+for x, y in zip(x_points[::-1], y_points[::-1]):
+    points.append((x, y))
+array = np.array(points)
+aero = nf.get_aero_from_coordinates(
+    coordinates=array,
+    alpha=alpha_deg,
+    Re=Re_chord,
+)
+print((aero["CL"]/aero["CD"])[0])
