@@ -14,5 +14,5 @@ aero = nf.get_aero_from_coordinates(  # You can use xy airfoil coordinates as an
     alpha=5,  # Vectorize your evaluations across `alpha` and `Re`
     Re=5e6,
 )
-print(aero["CL"]/aero["CD"])
+print( float(aero["CL"][0])/float(aero["CD"][0]))
 print(solver.calculateLD(foil.x_points, foil.y_points, 5, 5e6)[0])

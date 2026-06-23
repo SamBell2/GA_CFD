@@ -75,7 +75,7 @@ def evalFunction(system):
     )
     if aero["CD"] == 0:
         return 0
-    return (aero["CL"]/aero["CD"])[0]
+    return float(aero["CL"][0])/float(aero["CD"][0])
 
 
 def breedFunction(s1, s2):
