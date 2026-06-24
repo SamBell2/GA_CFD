@@ -13,8 +13,8 @@ x = np.array(x_points)
 y = np.array(y_points)
 with open(folder + '/' + "summary.txt") as f:
     lines = f.readlines()
-    alpha_deg = int(lines[0].split()[-2])
-    Re_chord = int(lines[1].split()[-1])
+    alpha_deg = float(lines[0].split()[-2])
+    Re_chord = float(lines[1].split()[-1])
 points = []
 for x, y in zip(x_points[::-1], y_points[::-1]):
     points.append((x, y))
