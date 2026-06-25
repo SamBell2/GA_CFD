@@ -5,11 +5,11 @@
 Parameter   | Value
 ------------|--------
 Randomising | Random NACA 4-digit airfoil
-Evaluating  | Panel method solver
+Evaluating  | NeuralFoil
 Breeding    | Averaging max camber dev, location and thickness
 ***
 ## Results
-This "airfoil" got a score of 89.29986997518414 at 14 degrees and a Reynold's number of 7991827. You can find the exact points [here](points.csv), and the script to analyse them [here](../analyse.py).
+This airfoil got a score of 394.7 at -0.8229266349933548 degrees and a Reynold's number of 8762727.895011235. You can find the exact points [here](points.csv), and the script to analyse them [here](../analyse.py).
 ***
 ## Explanation
-This was my third attempt, and it went a lot better than the first two. I think this was because I constrained it so all members of the population were airfoils (although some only vaguely), which is what my solver does well. This meant that it got a roughly correct value, so found a more accurate airfoil.
+This was my third attempt, and it went better than the first two. I think this was because I constrained it so all members of the population were airfoils (although some only vaguely), which is what my solver does well. This meant that it got a roughly correct value, so found a more accurate airfoil.
