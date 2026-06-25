@@ -1,5 +1,5 @@
-Angle of attack = 0.9067298891577293 degrees
-Reynolds number = 6671155.2319869995
-Max camber deviation = 0.1118602647202181
-Max camber location = 0.5896487891534791
-Thickness = 0.050536638322710575
+Angle of attack = 3.935155357779675 degrees
+Reynolds number = 3464957.14738412
+Max camber deviation = 0.09309738147887986
+Max camber location = 0.47272224950436403
+Thickness = 0.07263368908260989
