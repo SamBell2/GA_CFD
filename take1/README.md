@@ -6,11 +6,11 @@ This was my first attempt, and it didn't go very well. There are some bugs somew
 Parameter   | Value
 ------------|--------
 Randomising | Random x and y coordinates
-Evaluating  | Panel method solver
+Evaluating  | NeuralFoil
 Breeding    | Averaging x and y coordinates
 ***
 ## Results
-The angle of attack is 3 degrees and a Reynold's number of 9598856. According to my solver, it has a lift to drag ratio of -77459.69469191194. You can find the exact points [here](points.csv), and the script to analyse them [here](../analyse.py).
+The angle of attack is 8.5 degrees and a Reynold's number of 3558657.5. According to my solver, it has a lift to drag ratio of infinity! You can find the exact points [here](points.csv), and the script to analyse them [here](../analyse.py).
 ***
 ## Explanation
 The sharp angles and conflicting panel lead to a lot of turbulence, which my solver can't handle perfectly when there's this much. This leads to wildly wrong L/D values, which my algorithm then exploits to max out the values.
